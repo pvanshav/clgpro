@@ -1,0 +1,137 @@
+<title>Form</title>
+<h1>Form</h1>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 90%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=date],input[type=email],input[type=number], textarea{
+width: 200px;
+height:30px;
+}
+label {
+  padding: 15px 15px 15px 0;
+  display: inline-block;
+  font-size:20px;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  font-size:20px;
+  padding: 18px 25px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 80px;
+}
+</style>
+<form action="/index.html" method="post" onsubmit="myFunction()">
+    {% csrf_token %}
+
+    <div class="container">
+            <label>Name:</label>
+            <input type="text" name="name" placeholder="Enter your name"><br>
+            <label>DOB : </label>
+            <input type="date" name="dob" placeholder="Enter your Date of Birth"><br>
+            <label>Age </label>
+            <input type="radio" id="M" name="gender" value="M">
+            <label for="M">M</label>
+            <input type="radio" id="F" name="gender" value="F">
+            <label for="F">F</label><br>
+            <label>Contact : </label>
+            <input type="number" name="contact" placeholder="Enter your contact number"><br>
+            <label>Email address : </label>
+            <input type="email" name="email" placeholder="Enter your email address"><br>
+            <label for="department">Department:</label>
+            <select id="department" onchange="populateCourses()">
+            <option value="select">Select Department</option>
+            <option value="aero">Aeronautics</option>
+            <option value="as">Allied Science</option>
+            <option value="cs">Computer Science</option>
+            <option value="commerce">Commerce</option>
+            <option value="mech">Mechanical</option>
+            </select>
+        <br>
+
+            <label for="courses">Courses : </label>
+            <select id="courses">
+            <option value="select">Select Course</option>
+            </select>
+
+    <script>
+        function populateCourses() {
+            var departmentSelect = document.getElementById("department");
+            var coursesSelect = document.getElementById("courses");
+
+            // Clear previous options
+            coursesSelect.innerHTML = "";
+
+            // Get selected department
+            var selectedDepartment = departmentSelect.value;
+
+            // Define courses for each department
+            var courseOptions = {
+                aero: ["AME", "AeroSpace", "Avionics"],
+                mech: ["Automobile", "Marine", "Mechanical"],
+                commerce: ["BBA", "BCom","Finance"],
+                as: ["Biomedical", "Forensic","Psychology"],
+                cs: ["IT", "BCA","CSE"]
+
+            };
+
+            // Populate the courses dropdown based on the selected department
+            if (selectedDepartment !== "select") {
+                var courses = courseOptions[selectedDepartment];
+                for (var i = 0; i < courses.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = courses[i];
+                    option.text = courses[i];
+                    coursesSelect.appendChild(option);
+                }
+            } else {
+                var option = document.createElement("option");
+                option.value = "select";
+                option.text = "Select Course";
+                coursesSelect.appendChild(option);
+            }
+        }
+    </script>
+
+            <br><label>Materials :</label></br>
+           <input type="checkbox" id="material1" name="materials" value="Pen">
+            <label for="material1"> Pen</label><br>
+            <input type="checkbox" id="material2" name="material2" value="Exampaper">
+            <label for="material2"> Exam Paper</label><br>
+            <input type="checkbox" id="material3" name="material3" value="Noteboook">
+            <label for="material3"> Noteboook</label><br><br>
+            <script>
+                function myFunction() {
+  alert("The form was submitted");
+}
+            </script>
+            <input type="submit" value="Submit">
+
+
+
+    </div>
+</form>
+</body>
+</html>
